@@ -1,6 +1,8 @@
 #include <stdio.h>
+#include "gameBoard.h"
 
 int main() {
-    printf("Hello, World!\n");
+    struct boardSpace** spaces = initializeSpaces();
+    printBoard(spaces);
     return 0;
 }
