@@ -19,6 +19,9 @@ bool win = false;
 struct game currentGame;
 
 bool checkWin(struct boardSpace**);
+bool checkRows(struct boardSpace**);
+bool checkCols(struct boardSpace**);
+bool checkDiagonal(struct boardSpace**);
 
 void initializeGame() {
     currentGame.spaces = initializeSpaces();
@@ -73,8 +76,6 @@ void playGame() {
         currentGame.spaces[row - 65][col - 1].val = turnChar;
         currentGame.spaces[row - 65][col - 1].filled = true;
 
-        currentGame.xTurn = !currentGame.xTurn;
-
         printBoard(currentGame.spaces);
 
         turnCount++;
@@ -83,14 +84,50 @@ void playGame() {
             win = checkWin(currentGame.spaces);
         }
 
+        if (win) {
+            printf("%c's won!!!!\n", turnChar);
+        }
+
+        if (!win && turnCount == 9) {
+            printf("Stalemate. Try again.\n");
+        }
+
+        currentGame.xTurn = !currentGame.xTurn;
     }
 }
 
 bool checkWin(struct boardSpace** spaces) {
-    /*
-     * TO DO!!!
-     * Find algorithm to check win
-     */
+    if (checkRows(spaces)) { return true; }
+    if (checkCols(spaces)) { return true; }
+    if (checkDiagonal(spaces)) { return true; }
+
+    return false;
+}
+
+bool checkRows(struct boardSpace** spaces) {
+    for (int i = 0; i < 3; i++) {
+        if (spaces[i][0].val == spaces[i][2].val && spaces[i][0].val == spaces[i][1].val && spaces[i][0].filled) { return true; }
+    }
+
+    return false;
+}
+
+bool checkCols(struct boardSpace** spaces) {
+    for (int i = 0; i < 3; i++) {
+        if (spaces[0][i].val == spaces[2][i].val && spaces[0][i].val == spaces[1][i].val && spaces[0][i].filled) { return true; }
+    }
+
+    return false;
+}
+
+bool checkDiagonal(struct boardSpace** spaces) {
+    if (
+            (spaces[0][0].val == spaces[2][2].val && spaces[0][0].val == spaces[1][1].val && spaces[0][0].filled)
+            ||
+            (spaces[2][0].val == spaces[0][2].val && spaces[2][0].val == spaces[1][1].val && spaces[2][0].filled)
+            ) {
+        return true;
+    }
 
     return false;
 }
