@@ -75,6 +75,7 @@ void printBoard(struct boardSpace** spaces) {
             printf("\n  ");
         }
     }
+    printf("\n");
 }
 
 #endif //TIC_TAC_TOE_GAMEBOARD_H

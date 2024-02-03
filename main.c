@@ -1,8 +1,8 @@
-#include <stdio.h>
-#include "gameBoard.h"
+#include "gamePlay.h"
 
 int main() {
-    struct boardSpace** spaces = initializeSpaces();
-    printBoard(spaces);
+    initializeGame();
+    playGame();
+    exitGame();
     return 0;
 }

@@ -5,4 +5,5 @@ set(CMAKE_C_STANDARD 11)
 
 add_executable(Tic_Tac_Toe main.c
         gameBoard.h
+        gamePlay.h
 )
